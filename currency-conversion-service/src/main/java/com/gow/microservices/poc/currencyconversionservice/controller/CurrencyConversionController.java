@@ -2,6 +2,8 @@ package com.gow.microservices.poc.currencyconversionservice.controller;
 
 import com.gow.microservices.poc.currencyconversionservice.model.CurrencyConversionBean;
 import com.gow.microservices.poc.currencyconversionservice.serviceproxy.CurrencyExchangeServiceProxy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,8 @@ import java.util.Map;
 @RequestMapping("/currency-converter")
 public class CurrencyConversionController {
 
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     CurrencyExchangeServiceProxy currencyExchangeServiceProxy;
 
@@ -31,6 +35,8 @@ public class CurrencyConversionController {
         CurrencyConversionBean response = responseEntity.getBody();
         BigDecimal conversionMultiple = response.getConversionMultiple();
         BigDecimal convertedAmount = conversionMultiple.multiply(amount);
+        log.info("Currency conversion service response: {}", response);
+        log.error("Currency conversion service conversion multiple: {}", conversionMultiple);
         return new CurrencyConversionBean(response.getId(), from, to, conversionMultiple, amount, convertedAmount, response.getPort());
     }
 

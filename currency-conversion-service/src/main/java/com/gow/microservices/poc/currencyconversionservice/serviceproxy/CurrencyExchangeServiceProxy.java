@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 //@FeignClient(name = "currency-exchange-service", url = "localhost:8001", path = "/currency-exchange")
-@FeignClient(name = "currency-exchange-service", path = "/currency-exchange")
+//@FeignClient(name = "currency-exchange-service", path = "/currency-exchange")
+@FeignClient(name = "netflix-zuul-api-gateway-server", path = "/currency-exchange-service/currency-exchange")
 @RibbonClient(name = "currency-exchange-service")
 public interface CurrencyExchangeServiceProxy {
 
